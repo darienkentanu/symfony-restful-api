@@ -24,6 +24,13 @@ product_update:
     requirements:
         id: '\d+'
 
+product_delete:
+    path:     /product/{productId}
+    defaults: { _controller: AppBundle:DeleteProduct:deleteproduct}
+    methods: [DELETE]
+    requirements:
+        id: '\d+'
+
 lucky_number:
     path:     /lucky/number
     defaults:  { _controller: AppBundle:Lucky:number}
