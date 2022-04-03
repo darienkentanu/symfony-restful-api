@@ -22,7 +22,7 @@ class DeleteProductController extends Controller{
         $entityManager->flush();
         return new JsonResponse(array(
             "status" => 200,
-            "message" => "product with id" . $productId . "successfully deleted"
+            "message" => "product with id " . $productId . " successfully deleted"
         ));
     }
 }
