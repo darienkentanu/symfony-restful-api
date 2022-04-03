@@ -24,6 +24,13 @@ product_update:
     requirements:
         id: '\d+'
 
+product_update_query_param:
+    path:     /productqp/{productId}
+    defaults: { _controller: AppBundle:ShowProduct:updateWithQueryParam}
+    methods: [PUT]
+    requirements:
+        productId: '\d+'
+
 product_delete:
     path:     /product/{productId}
     defaults: { _controller: AppBundle:DeleteProduct:deleteproduct}
