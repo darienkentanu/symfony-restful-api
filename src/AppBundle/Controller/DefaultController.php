@@ -6,9 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Product;
+use AppBundle\Form\Type\ProductType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 class DefaultController extends Controller
 {
@@ -18,9 +18,37 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
+        // return $this->render('default/index.html.twig', array(
+        return $this->render('default/order_delivered.html.twig', array (
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+            'array' => "Subscription: 606705,\nInterval: Weekly, \nPengiriman ke: 1",
         ));
+    }
+
+    public function createFTAction(Request $request)
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class);
+        $form->handleRequest($request);
+        // $form = $this->createForm(ProductType::class)->handleRequest($request);
+        // dump($form->isSubmitted());
+        // die();
+        if ($form->isSubmitted() && $form->isValid()) 
+        // if (!is_null($form))
+        {
+            $product = $form->getData();
+            // dump($product);die;
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($product);
+            $entityManager->flush();
+            return new JsonResponse(array("status" => "success"));
+        } 
+        
+        // return $this->render('default/product.html.twig', array(
+        //     'form' => $form->createView(),
+        // ));
+        return new JsonResponse(array("messsage" => "an error has been occured"));
+
     }
 
     public function createAction(Request $request)

@@ -42,6 +42,12 @@ class Product
      */
     private $description;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=255)
+     */
+    private $note;
 
     /**
      * Get id
@@ -123,6 +129,30 @@ class Product
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $description
+     *
+     * @return Product
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 }
 

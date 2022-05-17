@@ -10,6 +10,10 @@ product_add:
     path:     /product
     defaults: { _controller: AppBundle:Default:create }
 
+product_add_ft:
+    path:     /productft
+    defaults: { _controller: AppBundle:Default:createFT }
+
 product_show:
     path:     /product/{productId}
     defaults: { _controller: AppBundle:ShowProduct:show}
