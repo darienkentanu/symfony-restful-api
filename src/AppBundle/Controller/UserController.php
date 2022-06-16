@@ -6,20 +6,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Form\Type\UserType;
 
 class UserController extends Controller{
 
-    public function addAction() {
+    public function addAction(Request $request) {
         $user = new User();
-        $entityManager = $this->getDoctrine()->getManager();
-        $form = $this->createFormBuilder($user)
-            ->add('name', TextType::class)
-            ->add('age', IntegerType::class)
-            ->add('save', SubmitType::class, array('label' => 'Add User'))
-            ->getForm();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return new JsonResponse(array(
+                "status" => 200,
+                "message" => "success"
+            ));
+        }
+
         return $this->render('default/user.html.twig', array(
             'form' => $form->createView(),
         ));

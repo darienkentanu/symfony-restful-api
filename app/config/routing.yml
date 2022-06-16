@@ -49,4 +49,4 @@ lucky_number:
 add_user:
     path: /user
     defaults: { _controller: AppBundle:User:add}
-    methods: [POST]
+    methods: [GET,POST]
