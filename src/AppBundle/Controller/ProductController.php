@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller{
 
+    // get product from db
     public function getAction($productId)
     {
         $product = $this->getDoctrine()
@@ -37,7 +38,7 @@ class ProductController extends Controller{
         return new JsonResponse($response);
     }
 
-    // using input from form
+    // add product using input from form
     public function addAction(Request $request)
     {
         $product = new Product();
@@ -70,7 +71,7 @@ class ProductController extends Controller{
         return new Response('Saved new product with id '.$product->getId());
     }
 
-    // input from formType
+    // add product using input from formType -> tidak perlu panggil form builder
     public function addWithFormTypeAction(Request $request) 
     {
         $product = new Product();
@@ -89,7 +90,7 @@ class ProductController extends Controller{
         return new JsonResponse(array("messsage" => "an error has been occured"));
     }
 
-    // from json input
+    // update product using id and json input
     public function updateAction(Request $request, $productId)
     {
         // check if product with id ... exist
@@ -120,6 +121,7 @@ class ProductController extends Controller{
         return new JsonResponse($response);
     }
 
+    // update product using id and query param
     public function updateWithQueryParamAction(Request $request, $productId)
     {
         // check if product with id ... exist
@@ -146,6 +148,7 @@ class ProductController extends Controller{
         return new JsonResponse($response);
     }
 
+    // delete product by id
     public function deleteAction($productId){
         $entityManager = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(Product::class);
