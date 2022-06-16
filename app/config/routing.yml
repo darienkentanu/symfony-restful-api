@@ -2,47 +2,43 @@ app:
     resource: '@AppBundle/Controller/'
     type: annotation
 
-blog_list:
-    path:     /blog
-    defaults: { _controller: AppBundle:Blog:list }
-
 product_add:
     path:     /product
-    defaults: { _controller: AppBundle:Default:create }
+    defaults: { _controller: AppBundle:Product:create }
 
 product_add_ft:
     path:     /productft
-    defaults: { _controller: AppBundle:Default:createFT }
+    defaults: { _controller: AppBundle:Product:createFT }
 
 product_show:
     path:     /product/{productId}
-    defaults: { _controller: AppBundle:ShowProduct:show}
+    defaults: { _controller: AppBundle:Product:show}
     methods: [GET]
     requirements:
         id: '\d+'
 
 product_update:
     path:     /product/{productId}
-    defaults: { _controller: AppBundle:ShowProduct:update}
+    defaults: { _controller: AppBundle:Product:update}
     methods: [PUT]
     requirements:
         id: '\d+'
 
 product_update_query_param:
     path:     /productqp/{productId}
-    defaults: { _controller: AppBundle:ShowProduct:updateWithQueryParam}
+    defaults: { _controller: AppBundle:Product:updateWithQueryParam}
     methods: [PUT]
     requirements:
         productId: '\d+'
 
 product_delete:
     path:     /product/{productId}
-    defaults: { _controller: AppBundle:DeleteProduct:deleteproduct}
+    defaults: { _controller: AppBundle:Product:deleteproduct}
     methods: [DELETE]
     requirements:
         id: '\d+'
 
-add_user:
+user_add:
     path: /user
     defaults: { _controller: AppBundle:User:add}
     methods: [GET,POST]
