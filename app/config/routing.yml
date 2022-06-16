@@ -45,3 +45,8 @@ product_delete:
 lucky_number:
     path:     /lucky/number
     defaults:  { _controller: AppBundle:Lucky:number}
+
+add_user:
+    path: /user
+    defaults: { _controller: AppBundle:User:add}
+    methods: [POST]
