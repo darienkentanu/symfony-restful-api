@@ -42,3 +42,7 @@ add_user:
     path: /user
     defaults: { _controller: AppBundle:User:add}
     methods: [GET,POST]
+
+coba:
+    path: /coba
+    defaults: { _controller: AppBundle:Coba:coba}
