@@ -25,30 +25,22 @@ class DefaultController extends Controller
         ));
     }
 
-    public function createFTAction(Request $request)
+    public function createFTAction(Request $request) 
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
-        // $form = $this->createForm(ProductType::class)->handleRequest($request);
-        // dump($form->isSubmitted());
-        // die();
-        if ($form->isSubmitted() && $form->isValid()) 
-        // if (!is_null($form))
-        {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $product = $form->getData();
-            // dump($product);die;
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->flush();
+
             return new JsonResponse(array("status" => "success"));
         } 
-        
-        // return $this->render('default/product.html.twig', array(
-        //     'form' => $form->createView(),
-        // ));
         return new JsonResponse(array("messsage" => "an error has been occured"));
-
     }
 
     public function createAction(Request $request)
