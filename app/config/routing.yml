@@ -2,20 +2,20 @@ app:
     resource: '@AppBundle/Controller/'
     type: annotation
 
-product_add:
-    path:     /product
-    defaults: { _controller: AppBundle:Product:create }
-
-product_add_ft:
-    path:     /productft
-    defaults: { _controller: AppBundle:Product:createFT }
-
-product_show:
+get_product:
     path:     /product/{productId}
-    defaults: { _controller: AppBundle:Product:show}
+    defaults: { _controller: AppBundle:Product:get}
     methods: [GET]
     requirements:
         id: '\d+'
+
+add_product:
+    path:     /product
+    defaults: { _controller: AppBundle:Product:add }
+
+add_product_ft:
+    path:     /productft
+    defaults: { _controller: AppBundle:Product:addWithFormType }
 
 product_update:
     path:     /product/{productId}
@@ -33,7 +33,7 @@ product_update_query_param:
 
 product_delete:
     path:     /product/{productId}
-    defaults: { _controller: AppBundle:Product:deleteproduct}
+    defaults: { _controller: AppBundle:Product:delete}
     methods: [DELETE]
     requirements:
         id: '\d+'
