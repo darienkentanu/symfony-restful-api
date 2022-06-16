@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ProductType;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller{
 
@@ -36,10 +37,10 @@ class ProductController extends Controller{
         return new JsonResponse($response);
     }
 
+    // using input from form
     public function addAction(Request $request)
     {
         $product = new Product();
-
         if (!$request->request->has('name')) {
             return new JsonResponse("name must be filled", 400);
         }
@@ -49,22 +50,27 @@ class ProductController extends Controller{
         if (!$request->request->has('description')) {
             return new JsonResponse('description must be filled', 400);
         }
-
+        if (!$request->request->has('note')) {
+            return new JsonResponse('note must be filled', 400);
+        }
         $name = $request->request->get('name');
         $price = $request->request->get('price');
         $description = $request->request->get('description');
+        $note = $request->request->get('note');
         $product->setName($name);
         $product->setPrice($price);
         $product->setDescription($description);
+        $product->setNote($note);
 
         $entityManager = $this->getDoctrine()->getManager();
         // tells Doctrine you want to (eventually) save the Product (no queries yet)
         $entityManager->persist($product);
-        // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
+
         return new Response('Saved new product with id '.$product->getId());
     }
 
+    // input from formType
     public function addWithFormTypeAction(Request $request) 
     {
         $product = new Product();
@@ -83,6 +89,7 @@ class ProductController extends Controller{
         return new JsonResponse(array("messsage" => "an error has been occured"));
     }
 
+    // from json input
     public function updateAction(Request $request, $productId)
     {
         // check if product with id ... exist
@@ -96,11 +103,9 @@ class ProductController extends Controller{
 
         $input = array();
         $content = $request->getContent();
-        if (!empty($content))
-        {
+        if (!empty($content)) {
             $input = json_decode($content, true);
         }
-
 
         $product->setName($input["name"]);
         $entityManager->flush();

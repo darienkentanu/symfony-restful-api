@@ -17,28 +17,28 @@ add_product_ft:
     path:     /productft
     defaults: { _controller: AppBundle:Product:addWithFormType }
 
-product_update:
+update_product:
     path:     /product/{productId}
     defaults: { _controller: AppBundle:Product:update}
     methods: [PUT]
     requirements:
         id: '\d+'
 
-product_update_query_param:
+update_product_query_param:
     path:     /productqp/{productId}
     defaults: { _controller: AppBundle:Product:updateWithQueryParam}
     methods: [PUT]
     requirements:
         productId: '\d+'
 
-product_delete:
+delete_product:
     path:     /product/{productId}
     defaults: { _controller: AppBundle:Product:delete}
     methods: [DELETE]
     requirements:
         id: '\d+'
 
-user_add:
+add_user:
     path: /user
     defaults: { _controller: AppBundle:User:add}
     methods: [GET,POST]
